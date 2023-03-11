@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DbModule } from './db/db.module';
 import { IdenModule } from './identification/iden.module';
+import { ProducerModule } from './producer/producer.module';
 import { SalesModule } from './sales/sales.module';
 import { TransactionModule } from './transaction/transaction.module';
 
@@ -16,6 +17,7 @@ import { TransactionModule } from './transaction/transaction.module';
     SalesModule,
     IdenModule,
     TransactionModule,
+    ProducerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
