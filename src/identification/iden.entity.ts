@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Entity, Column, PrimaryColumn, Generated } from 'typeorm';
+import { Sales } from 'src/sales/sales.entity';
+import { Entity, Column, PrimaryColumn, Generated, OneToOne } from 'typeorm';
 
-@Entity()
+@Entity('identification')
 export class Identification {
   @PrimaryColumn({ type: 'uuid' })
   @Generated('uuid')
@@ -12,4 +13,7 @@ export class Identification {
 
   @Column()
   order_id: string;
+
+  @OneToOne(() => Sales, (sales) => sales.identification)
+  sales: Sales;
 }

@@ -10,7 +10,9 @@ export class SalesService {
   ) {}
 
   async getSales() {
-    const sales = await this.salesRepository.find();
+    const sales = await this.salesRepository.find({
+      relations: { identification: true },
+    });
     return { sales };
   }
 }

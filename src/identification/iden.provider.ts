@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Identification } from './iden.entity';
 
-export const salesProviders = [
+export const idenProviders = [
   {
     provide: 'IDEN_REPOSITORY',
     useFactory: (dataSource: DataSource) =>

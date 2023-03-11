@@ -1,30 +1,41 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Entity, Column, PrimaryColumn, Generated } from 'typeorm';
+import { Identification } from 'src/identification/iden.entity';
+import { Transaction } from 'src/transaction/transaction.entity';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  Generated,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('sales')
 export class Sales {
   @PrimaryColumn({ type: 'uuid' })
   @Generated('uuid')
   id?: string;
 
-  @Column()
-  identification?: string;
+  @OneToOne(() => Identification)
+  @JoinColumn()
+  identification?: Identification;
 
-  @Column()
-  transaction: string;
+  @OneToOne(() => Transaction)
+  @JoinColumn()
+  transaction?: Transaction;
 
-  @Column()
+  @Column({ nullable: true })
   product: string;
 
-  @Column()
+  @Column({ nullable: true })
   producer: string;
 
-  @Column()
+  @Column({ nullable: true })
   customer: string;
 
-  @Column()
+  @Column({ nullable: true })
   comission: string;
 
-  @Column()
+  @Column({ nullable: true })
   metadata: string;
 }

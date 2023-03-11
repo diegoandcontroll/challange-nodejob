@@ -3,7 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DbModule } from './db/db.module';
+import { IdenModule } from './identification/iden.module';
 import { SalesModule } from './sales/sales.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { SalesModule } from './sales/sales.module';
     }),
     DbModule,
     SalesModule,
+    IdenModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

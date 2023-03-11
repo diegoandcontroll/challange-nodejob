@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { IsObject } from 'class-validator';
+import { Identification } from 'src/identification/iden.entity';
 
 export class createMovieDto {
   readonly id?: string;
 
   @IsObject()
-  readonly identification?: {
-    data_source: string;
-    order_id: string;
-  };
+  readonly identification?: Identification;
 
   @IsObject()
   readonly transaction?: {

@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { createIdenDto } from './dtos/createIden.dto';
 import { Identification } from './iden.entity';
 
 @Injectable()
@@ -9,8 +10,13 @@ export class IdentificationService {
     private idenRepository: Repository<Identification>,
   ) {}
 
-  async getSales() {
-    const sales = await this.idenRepository.find();
-    return { sales };
+  async getIdens() {
+    const idens = await this.idenRepository.find({
+      relations: { sales: true },
+    });
+    return { identificators: idens };
+  }
+  async create(data: createIdenDto): Promise<Identification> {
+    return await this.idenRepository.save(data);
   }
 }
