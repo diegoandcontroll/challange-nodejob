@@ -1,24 +1,24 @@
 import { Sales } from 'src/sales/sales.entity';
 import { Entity, Column, PrimaryColumn, Generated, OneToOne } from 'typeorm';
 
-@Entity('producer')
-export class Producer {
+@Entity('meta')
+export class Meta {
   @PrimaryColumn({ type: 'uuid' })
   @Generated('uuid')
   id?: string;
 
   @Column({ nullable: true })
-  name?: string;
+  affiliate_id?: string;
 
   @Column({ nullable: true })
-  document?: string;
+  utm_source?: string;
 
   @Column({ nullable: true })
-  email?: string;
+  utm_medium?: string;
 
   @Column({ nullable: true })
-  tel?: string;
+  utm_campaign?: string;
 
-  @OneToOne(() => Sales, (sales) => sales.producer)
+  @OneToOne(() => Sales, (sales) => sales.metadata)
   sales: Sales;
 }

@@ -11,7 +11,7 @@ export class SalesService {
 
   async getSales() {
     const sales = await this.salesRepository.find({
-      relations: { identification: true, metadata: true, transaction: true },
+      relations: { identification: true },
     });
     return { sales };
   }
