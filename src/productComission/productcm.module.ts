@@ -9,5 +9,6 @@ import { ProductCmService } from './productcm.service';
   imports: [DbModule],
   controllers: [ProductCmController],
   providers: [ProductCmService, ...productCmProviders],
+  exports: [ProductCmService, ...productCmProviders],
 })
 export class ProductCmModule {}

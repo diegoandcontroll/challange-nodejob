@@ -1,6 +1,7 @@
 import { CmList } from 'src/comissionList/cmlist.entity';
 import { ProductCm } from 'src/productComission/productcm.entity';
-import { Entity, PrimaryColumn, Generated, OneToMany } from 'typeorm';
+import { Sales } from 'src/sales/sales.entity';
+import { Entity, PrimaryColumn, Generated, OneToMany, OneToOne } from 'typeorm';
 
 @Entity('comission')
 export class Comission {
@@ -8,9 +9,18 @@ export class Comission {
   @Generated('uuid')
   id?: string;
 
-  @OneToMany(() => CmList, (cmlist) => cmlist.comission)
-  comissions_list: CmList[];
+  @OneToMany(() => CmList, (cmlist) => cmlist.comission, {
+    eager: true,
+    cascade: true,
+  })
+  comissions_list?: CmList[];
 
-  @OneToMany(() => ProductCm, (productCm) => productCm.comission)
-  co_production_commission: ProductCm[];
+  @OneToMany(() => ProductCm, (productCm) => productCm.comission, {
+    eager: true,
+    cascade: true,
+  })
+  co_production_commission?: ProductCm[];
+
+  @OneToOne(() => Sales, (sales) => sales.comission)
+  sales: Sales;
 }

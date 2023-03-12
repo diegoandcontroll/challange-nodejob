@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Comission } from 'src/comission/comission.entity';
 import { Repository } from 'typeorm';
 import { CmList } from './cmlist.entity';
+import { createCmListDto } from './dtos/createCmList.dto';
 
 @Injectable()
 export class CmListService {
@@ -12,5 +14,10 @@ export class CmListService {
   async getCmList() {
     const cmlist = await this.cmListRepository.find();
     return { cmlist };
+  }
+  async create(createCmListDto: createCmListDto) {
+    const cmList = this.cmListRepository.create(createCmListDto);
+    await this.cmListRepository.save(cmList);
+    return cmList;
   }
 }

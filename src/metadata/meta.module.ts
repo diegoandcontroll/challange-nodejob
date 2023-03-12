@@ -9,5 +9,6 @@ import { MetaService } from './meta.service';
   imports: [DbModule],
   controllers: [MetaController],
   providers: [MetaService, ...metaProviders],
+  exports: [MetaService, ...metaProviders],
 })
 export class MetadataModule {}

@@ -10,9 +10,6 @@ export class ProductCm {
   @Column({ nullable: true })
   title?: string;
 
-  @ManyToOne(() => Comission, (cm) => cm.co_production_commission, {
-    eager: true,
-    cascade: true,
-  })
+  @ManyToOne(() => Comission, (cm) => cm.co_production_commission)
   comission: Comission;
 }

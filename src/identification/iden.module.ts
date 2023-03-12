@@ -9,5 +9,6 @@ import { IdentificationService } from './iden.service';
   imports: [DbModule],
   controllers: [IdentificationController],
   providers: [IdentificationService, ...idenProviders],
+  exports: [IdentificationService, ...idenProviders],
 })
 export class IdenModule {}

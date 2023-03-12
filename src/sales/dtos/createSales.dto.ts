@@ -1,85 +1,30 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { IsObject } from 'class-validator';
+import { IsOptional } from 'class-validator';
+import { Comission } from 'src/comission/comission.entity';
+import { createCmListDto } from 'src/comissionList/dtos/createCmList.dto';
+import { Customer } from 'src/customer/customer.entity';
 import { Identification } from 'src/identification/iden.entity';
+import { Meta } from 'src/metadata/meta.entity';
+import { Producer } from 'src/producer/producer.entity';
+import { Transaction } from 'src/transaction/transaction.entity';
 
-export class createMovieDto {
+export class createSalesDto {
   readonly id?: string;
 
-  @IsObject()
-  readonly identification?: Identification;
+  @IsOptional()
+  identification?: Identification;
 
-  @IsObject()
-  readonly transaction?: {
-    status?: string;
-    created_date?: string;
-    updated_date?: string;
-    value?: Number;
-    discount_value?: Number;
-    freight?: Number;
-    freight_type?: string;
-    payment_type?: string;
-    payment_card_brand?: string;
-    payment_line?: string;
-    payment_bar_code?: string;
-    payment_url?: string;
-    billet_url?: string;
-    pix_qrcode?: string;
-    pix_emv?: string;
-    pix_ref?: string;
-    pix_expiration_date?: string;
-    pix_creation_date?: string;
-    pix_url?: string;
-    is_upsell?: string;
-  };
+  @IsOptional()
+  transaction?: Transaction;
 
-  @IsObject()
-  readonly product?: {
-    bundles?: [
-      {
-        id?: string;
-        name?: string;
-        quantity?: Number;
-        price?: Number;
-        products?: [
-          {
-            id?: string;
-            name?: string;
-            quantity?: Number;
-            price?: Number;
-          },
-        ];
-      },
-    ];
-  };
+  @IsOptional()
+  producer?: Producer;
 
-  @IsObject()
-  readonly producer?: {
-    name?: string;
-    document?: string;
-    email?: string;
-    tel?: string;
-  };
+  @IsOptional()
+  customer?: Customer;
 
-  @IsObject()
-  readonly customer?: {
-    id: string;
-    name: string;
-    email: string;
-    telephone: string;
-    document: string;
-  };
+  @IsOptional()
+  comission?: Comission;
 
-  @IsObject()
-  readonly comission?: {
-    comissions_list: Array<string>;
-    co_production_commission: Array<string>;
-  };
-
-  @IsObject()
-  readonly metadata?: {
-    affiliate_id: string;
-    utm_source: string;
-    utm_medium: string;
-    utm_campaign: string;
-  };
+  @IsOptional()
+  metadata?: Meta;
 }

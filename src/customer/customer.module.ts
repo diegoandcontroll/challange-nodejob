@@ -9,5 +9,6 @@ import { CustomerService } from './customer.service';
   imports: [DbModule],
   controllers: [CustomerController],
   providers: [CustomerService, ...customerProviders],
+  exports: [CustomerService, ...customerProviders],
 })
 export class CustomerModule {}

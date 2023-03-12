@@ -1,7 +1,7 @@
 version: '2.0'
 services:
   database:
-    container_name: jobdb
+    container_name: nest_db_pg
     image: 'postgres:13'
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

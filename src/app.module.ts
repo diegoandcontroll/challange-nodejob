@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ComissionModule } from './comission/comission.module';
 import { CmListModule } from './comissionList/cmlist.module';
+import { cmListProviders } from './comissionList/cmlist.provider';
+import { CmListService } from './comissionList/cmlist.service';
 import { CustomerModule } from './customer/customer.module';
 import { DbModule } from './db/db.module';
 import { IdenModule } from './identification/iden.module';
@@ -19,17 +21,17 @@ import { TransactionModule } from './transaction/transaction.module';
       envFilePath: '.env',
     }),
     DbModule,
+    ComissionModule,
+    CmListModule,
+    ProductCmModule,
     SalesModule,
     IdenModule,
     TransactionModule,
     ProducerModule,
     MetadataModule,
     CustomerModule,
-    ComissionModule,
-    CmListModule,
-    ProductCmModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CmListService, ...cmListProviders],
 })
 export class AppModule {}

@@ -8,11 +8,11 @@ export class Identification {
   @Generated('uuid')
   id?: string;
 
-  @Column({ default: 'HOTMART' })
+  @Column({ default: 'HOTMART', nullable: true })
   data_source?: string;
 
-  @Column()
-  order_id: string;
+  @Column({ default: null, nullable: true })
+  order_id?: string;
 
   @OneToOne(() => Sales, (sales) => sales.identification)
   sales: Sales;

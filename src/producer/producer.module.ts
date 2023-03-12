@@ -9,5 +9,6 @@ import { ProducerService } from './producer.service';
   imports: [DbModule],
   controllers: [ProducerController],
   providers: [ProducerService, ...producerProviders],
+  exports: [ProducerService, ...producerProviders],
 })
 export class ProducerModule {}
