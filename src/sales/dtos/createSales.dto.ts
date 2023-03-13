@@ -5,6 +5,7 @@ import { Customer } from 'src/customer/customer.entity';
 import { Identification } from 'src/identification/iden.entity';
 import { Meta } from 'src/metadata/meta.entity';
 import { Producer } from 'src/producer/producer.entity';
+import { Product } from 'src/products/product.entity';
 import { Transaction } from 'src/transaction/transaction.entity';
 
 export class createSalesDto {
@@ -15,6 +16,9 @@ export class createSalesDto {
 
   @IsOptional()
   transaction?: Transaction;
+
+  @IsOptional()
+  product?: Product;
 
   @IsOptional()
   producer?: Producer;

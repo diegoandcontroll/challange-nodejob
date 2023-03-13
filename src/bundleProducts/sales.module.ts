@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { DbModule } from 'src/db/db.module';
-import { SalesController } from './sales.controller';
+import { ProuctBundleController } from './sales.controller';
 
-import { salesProviders } from './sales.provider';
-import { SalesService } from './sales.service';
+import { productBdProviders } from './sales.provider';
+import { ProuctBundleService } from './sales.service';
 
 @Module({
   imports: [DbModule],
-  controllers: [SalesController],
-  providers: [SalesService, ...salesProviders],
+  controllers: [ProuctBundleController],
+  providers: [ProuctBundleService, ...productBdProviders],
+  exports: [...productBdProviders],
 })
-export class SalesModule {}
+export class ProuctBundleModule {}

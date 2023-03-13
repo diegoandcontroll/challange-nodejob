@@ -1,10 +1,11 @@
 import { DataSource } from 'typeorm';
-import { Sales } from './sales.entity';
+import { ProuctBundle } from './sales.entity';
 
-export const salesProviders = [
+export const productBdProviders = [
   {
-    provide: 'SALES_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(Sales),
+    provide: 'PRODUCTBD_REPOSITORY',
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(ProuctBundle),
     inject: ['DATA_SOURCE'],
   },
 ];

@@ -33,7 +33,10 @@ $ yarn install
 ```
 
 ## Running the app
-
+  ```
+    # create .env file
+    # run docker-compose up --build
+  ```
 ```bash
 # development
 $ yarn run start
@@ -58,10 +61,15 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Support
+## About
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+challenge test project for nodejs backend developer vacancy.
 
+## Demo
+  [docs](https://twitter.com/)
+  [api](https://twitter.com/)
+  [web](https://twitter.com/)
+  
 ## Stay in touch
 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)

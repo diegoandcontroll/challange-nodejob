@@ -12,6 +12,7 @@ import { IdenModule } from './identification/iden.module';
 import { MetadataModule } from './metadata/meta.module';
 import { ProducerModule } from './producer/producer.module';
 import { ProductCmModule } from './productComission/productcm.module';
+import { ProductModule } from './products/product.module';
 import { SalesModule } from './sales/sales.module';
 import { TransactionModule } from './transaction/transaction.module';
 
@@ -30,6 +31,7 @@ import { TransactionModule } from './transaction/transaction.module';
     ProducerModule,
     MetadataModule,
     CustomerModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService, CmListService, ...cmListProviders],

@@ -1,18 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Sales } from './sales.entity';
+import { ProuctBundle } from './sales.entity';
 
 @Injectable()
-export class SalesService {
+export class ProuctBundleService {
   constructor(
-    @Inject('SALES_REPOSITORY')
-    private salesRepository: Repository<Sales>,
+    @Inject('PRODUCTBD_REPOSITORY')
+    private salesRepository: Repository<ProuctBundle>,
   ) {}
 
   async getSales() {
-    const sales = await this.salesRepository.find({
-      relations: { identification: true },
-    });
+    const sales = await this.salesRepository.find();
     return { sales };
   }
 }

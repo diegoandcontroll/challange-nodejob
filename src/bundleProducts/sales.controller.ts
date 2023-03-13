@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
-import { SalesService } from './sales.service';
+import { ProuctBundleService } from './sales.service';
 
-@Controller('sales')
-export class SalesController {
-  constructor(private readonly salesService: SalesService) {}
+@Controller('productbd')
+export class ProuctBundleController {
+  constructor(private readonly productBdService: ProuctBundleService) {}
 
   @Get()
   async getSales() {
-    return await this.salesService.getSales();
+    return await this.productBdService.getSales();
   }
 }

@@ -1,41 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import { Identification } from 'src/identification/iden.entity';
-import { Transaction } from 'src/transaction/transaction.entity';
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  Generated,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
-
-@Entity('sales')
-export class Sales {
+import { Entity, Column, PrimaryColumn, Generated, ManyToOne } from 'typeorm';
+import { Product } from '../products/product.entity';
+@Entity('product_bundle')
+export class ProuctBundle {
   @PrimaryColumn({ type: 'uuid' })
   @Generated('uuid')
   id?: string;
 
-  @OneToOne(() => Identification)
-  @JoinColumn()
-  identification?: Identification;
+  @Column()
+  name: string;
 
-  @OneToOne(() => Transaction)
-  @JoinColumn()
-  transaction?: Transaction;
+  @Column()
+  quantity: string;
 
-  @Column({ nullable: true })
-  product: string;
+  @Column()
+  price: string;
 
-  @Column({ nullable: true })
-  producer: string;
-
-  @Column({ nullable: true })
-  customer: string;
-
-  @Column({ nullable: true })
-  comission: string;
-
-  @Column({ nullable: true })
-  metadata: string;
+  @ManyToOne(() => Product, (p) => p.bundles)
+  product: Product;
 }

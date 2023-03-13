@@ -4,6 +4,7 @@ import { Customer } from 'src/customer/customer.entity';
 import { Identification } from 'src/identification/iden.entity';
 import { Meta } from 'src/metadata/meta.entity';
 import { Producer } from 'src/producer/producer.entity';
+import { Product } from 'src/products/product.entity';
 import { Transaction } from 'src/transaction/transaction.entity';
 import {
   Entity,
@@ -27,8 +28,9 @@ export class Sales {
   @JoinColumn()
   transaction?: Transaction;
 
-  // @Column({ nullable: true })
-  // product: string;
+  @OneToOne(() => Product, { eager: true, cascade: true })
+  @JoinColumn()
+  product?: Product;
 
   @OneToOne(() => Producer, { eager: true, cascade: true })
   @JoinColumn()

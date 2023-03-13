@@ -26,6 +26,8 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
+import { Product } from 'src/products/product.entity';
+import { ProuctBundle } from 'src/bundleProducts/sales.entity';
 let token2: string;
 @Injectable()
 export class SalesService {
@@ -58,6 +60,12 @@ export class SalesService {
 
     @Inject('META_REPOSITORY')
     private metaRepository: Repository<Meta>,
+
+    @Inject('PRODUCTBD_REPOSITORY')
+    private productBdRepository: Repository<ProuctBundle>,
+
+    @Inject('PRODUCT_REPOSITORY')
+    private productRepository: Repository<Product>,
 
     private readonly httpService: HttpService,
   ) {}
@@ -121,6 +129,7 @@ export class SalesService {
         customer: true,
         comission: true,
         metadata: true,
+        product: true,
       },
     });
     return {
@@ -138,6 +147,8 @@ export class SalesService {
     const productcm = new ProductCm();
     const comission = new Comission();
     const metadata = new Meta();
+    const product = new Product();
+    const productBd = new ProuctBundle();
     const titleCmList = create.comission.comissions_list?.map((item) => {
       return item.title;
     });
@@ -180,6 +191,15 @@ export class SalesService {
     transaction.discount_value = discount_value;
     transaction.payment_type = payment_type;
 
+    // productBd.name = create.product?.name;
+    // productBd.price = create.product?.price;
+    // productBd.quantity = create.product?.quantity;
+    // product.bundles?.push(productBd);
+
+    product.name = create.product?.name;
+    product.price = create.product?.price;
+    product.quantity = create.product?.quantity;
+
     const { document, email, name, tel } = create.producer;
 
     producer.document = document;
@@ -203,7 +223,10 @@ export class SalesService {
     sale.identification = identification;
     sale.comission = comission;
     sale.metadata = metadata;
+    sale.product = product;
 
+    await this.productRepository.save(product);
+    // await this.productBdRepository.save(productBd);
     await this.cmListRepository.save(cmlist);
     await this.productCmRepository.save(productcm);
     await this.comissionRepository.save(comission);
@@ -232,9 +255,14 @@ export class SalesService {
     data.forEach((item, i) => {
       const comission = new Comission();
       const customer = new Customer();
+      const product = new Product();
       producer.document = `${item.purchase?.offer.code}i`;
       producer.email = `${item.producer?.name}@email.com`;
       producer.name = `${item.producer?.name}`;
+
+      product.name = item.product?.name;
+      product.price = item.product.price?.toString();
+      product.quantity = item.product.quantity?.toString();
 
       customer.document = `${item.purchase?.offer.code}.CS`;
       customer.email = `${item.buyer?.email}`;
@@ -255,6 +283,7 @@ export class SalesService {
         metadata,
         producer,
         transaction,
+        product,
       });
     });
     return { message: 'POPULATE COMPLETE' };
