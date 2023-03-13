@@ -81,3 +81,78 @@ export interface RootObject {
   comission: Comission;
   metadata: Metadata;
 }
+
+export interface Producer2 {
+  name: string;
+  ucode: string;
+}
+
+export interface Buyer2 {
+  name: string;
+  ucode: string;
+  email: string;
+}
+
+export interface Product2 {
+  name: string;
+  id: string;
+}
+
+export interface Price2 {
+  value: number;
+  currency_code: string;
+}
+
+export interface Payment2 {
+  installments_number: number;
+  type: string;
+  method: string;
+}
+
+export interface Offer2 {
+  payment_mode: string;
+  code: string;
+}
+
+export interface HotmartFee2 {
+  fixed: number;
+  total: number;
+  base: number;
+  currency_code: string;
+}
+
+export interface Tracking2 {
+  source: string;
+}
+
+export interface Purchase2 {
+  order_date: any;
+  is_subscription: boolean;
+  price: Price2;
+  payment: Payment2;
+  commission_as: string;
+  transaction: string;
+  approved_date: any;
+  offer: Offer2;
+  warranty_expire_date: any;
+  status: string;
+  hotmart_fee: HotmartFee2;
+  tracking: Tracking2;
+}
+
+export interface Item {
+  producer: Producer2;
+  buyer: Buyer2;
+  product: Product2;
+  purchase: Purchase2;
+}
+
+export interface PageInfo {
+  results_per_page: number;
+  total_results: number;
+}
+
+export interface RootObject2 {
+  items: Item[];
+  page_info: PageInfo;
+}

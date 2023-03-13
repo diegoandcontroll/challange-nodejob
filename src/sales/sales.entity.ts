@@ -19,30 +19,30 @@ export class Sales {
   @Generated('uuid')
   id?: string;
 
-  @OneToOne(() => Identification)
+  @OneToOne(() => Identification, { eager: true, cascade: true })
   @JoinColumn()
   identification?: Identification;
 
-  @OneToOne(() => Transaction)
+  @OneToOne(() => Transaction, { eager: true, cascade: true })
   @JoinColumn()
   transaction?: Transaction;
 
   // @Column({ nullable: true })
   // product: string;
 
-  @OneToOne(() => Producer)
+  @OneToOne(() => Producer, { eager: true, cascade: true })
   @JoinColumn()
   producer?: Producer;
 
-  @OneToOne(() => Customer)
+  @OneToOne(() => Customer, { eager: true, cascade: true })
   @JoinColumn()
   customer?: Customer;
 
-  @OneToOne(() => Comission)
+  @OneToOne(() => Comission, { eager: true, cascade: true })
   @JoinColumn()
   comission: Comission;
 
-  @OneToOne(() => Meta)
+  @OneToOne(() => Meta, { eager: true, cascade: true })
   @JoinColumn()
   metadata?: Meta;
 }

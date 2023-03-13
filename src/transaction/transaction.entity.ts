@@ -26,7 +26,7 @@ export class Transaction {
   updatedAt: string;
 
   @Column({ nullable: true })
-  value: number;
+  value: string;
 
   @Column({ nullable: true })
   discount_value: number;

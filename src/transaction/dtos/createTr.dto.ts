@@ -15,7 +15,7 @@ export class createTrDto {
   updatedAt?: string;
 
   @IsNumber()
-  value?: number;
+  value?: string;
 
   @IsNumber()
   discount_value?: number;

@@ -20,6 +20,12 @@ import { Repository } from 'typeorm';
 import { createSalesDto, IRequest } from './dtos/createSales.dto';
 import { Sales } from './sales.entity';
 import { AxiosResponse, AxiosRequestConfig } from 'axios';
+import { RootObject2 } from 'src/comission/interfaces/all.interfaces';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 let token2: string;
 @Injectable()
 export class SalesService {
@@ -90,63 +96,22 @@ export class SalesService {
         Authorization: `Bearer ${bearerToken}`,
       },
     };
-
+    if (!bearerToken) {
+      throw new HttpException(
+        'GET TOKEN IN PATH /sales/token',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     try {
-      const response = await this.httpService.get(url, config).toPromise();
-      return response.data?.items;
+      const response = await this.httpService
+        .get<RootObject2>(url, config)
+        .toPromise();
+      return response.data.items;
     } catch (e) {
       console.error(e);
       throw e;
     }
   }
-  // async getExemploData(accessToken: string): Promise<AxiosResponse> {
-  //   const config: AxiosRequestConfig = {
-  //     method: 'GET',
-  //     url: 'https://developers.hotmart.com/payments/api/v1/sales/history?transaction_status=APPROVED',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   };
-
-  //   const response = await this..request(config);
-  //   return response;
-  // }
-
-  // async getSalesHistory(): Promise<any> {
-  //   const response = await this.api.get('/sales/history', {
-  //     params: {
-  //       start_date: 1617235200000,
-  //       end_date: 1622332800000,
-  //     },
-  //   });
-  //   console.log(response);
-  //   return response.data;
-  // }
-
-  // async gethistory() {
-  //   const token = this.token;
-  //   const url = `https://developers.hotmart.com/payments/api/v1/sales/history?start_date=1617235200000&end_date=1622332800000`;
-  //   const options = {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${this.token}`,
-  //   };
-  //   if (!token) {
-  //     throw new HttpException(
-  //       'FAILED REQUEST FIRST GET IN PATH /token',
-  //       HttpStatus.BAD_REQUEST,
-  //     );
-  //   }
-
-  //   try {
-  //     const response = await this.httpService
-  //       .get(url, { headers: options })
-  //       .toPromise();
-  //     console.log(response.data, response.config, response.headers);
-  //   } catch (e) {
-  //     return e;
-  //   }
-  // }
   async getSales() {
     const sales = await this.salesRepository.find({
       relations: {
@@ -173,27 +138,27 @@ export class SalesService {
     const productcm = new ProductCm();
     const comission = new Comission();
     const metadata = new Meta();
-    const titleCmList = create.comission.comissions_list.map((item) => {
+    const titleCmList = create.comission.comissions_list?.map((item) => {
       return item.title;
     });
-    const titleProduct = create.comission.co_production_commission.map(
+    const titleProduct = create.comission.co_production_commission?.map(
       (item) => {
         return item.title;
       },
     );
-    cmlist.title = titleCmList.toString();
-    productcm.title = titleProduct.toString();
+    cmlist.title = titleCmList?.toString();
+    productcm.title = titleProduct?.toString();
 
     comission.comissions_list?.map((item) => {
-      return (item.title = titleCmList.toString());
+      return (item.title = titleCmList?.toString());
     });
     comission.co_production_commission?.map((item) => {
-      return (item.title = titleProduct.toString());
+      return (item.title = titleProduct?.toString());
     });
 
     identification.data_source = create.identification?.data_source;
-    identification.order_id = create.identification.order_id
-      ? create.identification.order_id
+    identification.order_id = create.identification?.order_id
+      ? create.identification?.order_id
       : null;
     const {
       value,
@@ -227,10 +192,10 @@ export class SalesService {
     customer.name = create.customer?.email;
     customer.telephone = create.customer?.telephone;
 
-    metadata.affiliate_id = create.metadata.affiliate_id;
-    metadata.utm_campaign = create.metadata.utm_campaign;
-    metadata.utm_medium = create.metadata.utm_medium;
-    metadata.utm_source = create.metadata.utm_source;
+    metadata.affiliate_id = create.metadata?.affiliate_id;
+    metadata.utm_campaign = create.metadata?.utm_campaign;
+    metadata.utm_medium = create.metadata?.utm_medium;
+    metadata.utm_source = create.metadata?.utm_source;
 
     sale.customer = customer;
     sale.producer = producer;
@@ -252,6 +217,50 @@ export class SalesService {
   }
 
   async populate() {
-    return null;
+    const data = await this.getData();
+    const producer = new Producer();
+
+    const transaction = new Transaction();
+    const identification = new Identification();
+    const metadata = new Meta();
+    if (!this.token) {
+      throw new HttpException(
+        'GET TOKEN IN PATH /sales/token',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    data.forEach((item, i) => {
+      const comission = new Comission();
+      const customer = new Customer();
+      producer.document = `${item.purchase?.offer.code}i`;
+      producer.email = `${item.producer?.name}@email.com`;
+      producer.name = `${item.producer?.name}`;
+
+      customer.document = `${item.purchase?.offer.code}.CS`;
+      customer.email = `${item.buyer?.email}`;
+      customer.name = `${item.buyer?.name}`;
+
+      transaction.value = `${item.purchase?.price?.value}`;
+      transaction.billet_url = item.purchase?.commission_as;
+      // transaction.freight = Number(item.purchase?.hotmart_fee.total);
+      transaction.freight_type = item.purchase?.transaction;
+      transaction.status = item.purchase?.status;
+      transaction.payment_card_brand = item.purchase?.payment.method;
+      transaction.payment_type = item.purchase?.payment.type;
+      identification.data_source = 'HOTMART';
+      this.create({
+        comission,
+        customer,
+        identification,
+        metadata,
+        producer,
+        transaction,
+      });
+    });
+    return { message: 'POPULATE COMPLETE' };
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Sales>> {
+    return paginate<Sales>(this.salesRepository, options);
   }
 }
