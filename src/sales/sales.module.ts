@@ -1,4 +1,6 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { Axios } from 'axios';
 import { comissionProviders } from 'src/comission/comission.provider';
 import { cmListProviders } from 'src/comissionList/cmlist.provider';
 import { customerProviders } from 'src/customer/customer.provider';
@@ -13,9 +15,8 @@ import { SalesController } from './sales.controller';
 
 import { salesProviders } from './sales.provider';
 import { SalesService } from './sales.service';
-
 @Module({
-  imports: [DbModule],
+  imports: [DbModule, HttpModule],
   controllers: [SalesController],
   providers: [
     SalesService,

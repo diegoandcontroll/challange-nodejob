@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { createSalesDto } from './dtos/createSales.dto';
+import { createSalesDto, IRequest } from './dtos/createSales.dto';
 import { SalesService } from './sales.service';
 
 @Controller('sales')
@@ -22,5 +22,15 @@ export class SalesController {
   @HttpCode(HttpStatus.CREATED)
   async createIden(@Body() createSales: createSalesDto) {
     return await this.salesService.create(createSales);
+  }
+
+  @Get('token')
+  async token() {
+    return await this.salesService.getToken();
+  }
+
+  @Get('history')
+  async history() {
+    return await this.salesService.getData();
   }
 }

@@ -1,4 +1,4 @@
-import { IsOptional } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { Comission } from 'src/comission/comission.entity';
 import { createCmListDto } from 'src/comissionList/dtos/createCmList.dto';
 import { Customer } from 'src/customer/customer.entity';
@@ -27,4 +27,15 @@ export class createSalesDto {
 
   @IsOptional()
   metadata?: Meta;
+}
+
+export class IRequest {
+  @IsString()
+  client_id: string;
+
+  @IsString()
+  client_secret: string;
+
+  @IsString()
+  token: string;
 }
