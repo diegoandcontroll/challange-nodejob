@@ -66,15 +66,9 @@ $ yarn run test:cov
 challenge test project for nodejs backend developer vacancy.
 
 ## Demo
-  [docs](https://twitter.com/)
-  [api](https://twitter.com/)
-  [web](https://twitter.com/)
-  
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  [docs](https://documenter.getpostman.com/view/15021592/2s93Jus2g7)
+  [api](https://challange-nodedjob.onrender.com/api)
+  [web](https://challenge-job-front.vercel.app/)
 
 ## License
 
